@@ -1,0 +1,124 @@
+lspci | grep -i nvidia 
+01:00.0 3D controller: NVIDIA Corporation GP108M [GeForce MX150] (rev a1)
+
+
+
+roscore
+
+roslaunch kinect2_bridge kinect2_bridge.launch
+
+roslaunch mocap_qualisys qualisys.launch
+
+roslaunch apriltag_ros continuous_detection.launch
+
+rosbag record /kinect2/sd/camera_info /kinect2/sd/image_color_rect /kinect2/sd/image_depth /qualisys/vi/pose 
+rosbag record /kinect2/sd/camera_info /kinect2/sd/image_color_rect /kinect2/sd/image_depth /qualisys/vi/pose /qualisys/tag/pose /kinect2/hd/camera_info /kinect2/hd/image_color /kinect2/hd/image_depth_rect
+
+
+
+rosrun rqt_image_view rqt_image_view
+rosbag play 2019-06-11-21-01-47.bag
+
+rosbag play -r 0.5 *.bag
+
+
+
+
+
+rosmsg show geometry_msgs/PoseStamped
+=====================================
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+geometry_msgs/Pose pose
+  geometry_msgs/Point position
+    float64 x
+    float64 y
+    float64 z
+  geometry_msgs/Quaternion orientation
+    float64 x
+    float64 y
+    float64 z
+    float64 w
+
+
+
+
+rosmsg show sensor_msgs/CameraInfo 
+==================================
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+uint32 height
+uint32 width
+string distortion_model
+float64[] D
+float64[9] K
+float64[9] R
+float64[12] P
+uint32 binning_x
+uint32 binning_y
+sensor_msgs/RegionOfInterest roi
+  uint32 x_offset
+  uint32 y_offset
+  uint32 height
+  uint32 width
+  bool do_rectify
+
+
+
+rostopic type /tf
+=================
+tf2_msgs/TFMessage
+
+rosmsg show tf2_msgs/TFMessage 
+==============================
+geometry_msgs/TransformStamped[] transforms
+  std_msgs/Header header
+    uint32 seq
+    time stamp
+    string frame_id
+  string child_frame_id
+  geometry_msgs/Transform transform
+    geometry_msgs/Vector3 translation
+      float64 x
+      float64 y
+      float64 z
+    geometry_msgs/Quaternion rotation
+      float64 x
+      float64 y
+      float64 z
+      float64 w
+
+
+
+calibration rotation:
+-0.0914324  -0.986106   0.138689
+  0.390911  -0.163635  -0.905766
+  0.915876 -0.0286014   0.400442
+
+calibration translation -0.0673445 0.00923162 -0.0176989
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
